@@ -22,7 +22,11 @@ export default function FolderList({ data }:{data:any}){
                 </View>
             </View>
             <View style={{...styles.row}}>
-                <TouchableOpacity style={{...styles.btnActions, ...styles.iconView}}>
+                <TouchableOpacity style={{...styles.btnActions, ...styles.iconView}}
+                    onPress={() => {
+                        navigator.navigate("register", { id: data.id, nome: data.nome, file: data.file, extensao: data.extensao })
+                    }}                
+                >
                     <Image source={{uri: 'https://mrpass.site/img/icons/eye.png'}} style={styles.iconActions}></Image>
                 </TouchableOpacity>
                 <TouchableOpacity style={{...styles.btnActions, ...styles.iconEdit}}
