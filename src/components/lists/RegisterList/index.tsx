@@ -97,7 +97,7 @@ export default function RegisterList({ data }:{data:any}){
 
                 <TouchableOpacity style={{...styles.btnActions, ...styles.iconDelete}} 
                     onPress={() => {
-                        navigatorr.navigate("deleteFolder", { id: data.id, nome: data.nome })
+                        navigatorr.navigate("deleteRegister", { id: data.id, nome: data.plataforma })
                     }}
                 >
                     <Image source={{uri: 'https://mrpass.site/img/icons/trash-can.png'}} style={styles.iconActions}></Image>

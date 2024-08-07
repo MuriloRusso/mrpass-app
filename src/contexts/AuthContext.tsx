@@ -19,6 +19,7 @@ type AuthContextData = {
     editFolder: (crendentials: EditFolderProps) => Promise<void>;
     deleteFolder: (crendentials: DeleteFolderProps) => Promise<void>;
     newRegister: (crendentials: RegisterProps) => Promise<void>;
+    deleteRegister: (crendentials: DeleteRegisterProps) => Promise<void>;
 
     loadingAuth: boolean;
     loading: boolean;
@@ -69,6 +70,12 @@ type RegisterProps = {
 
 }
 
+
+// delete folder 
+type DeleteRegisterProps = {
+    id: number;
+    title: string;
+}
 
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -354,8 +361,45 @@ export function AuthProvider({children}: AuthProviderProps){
     }
 
 
+    
+    // delete Register
+
+    async function postFetchMultipartDeleteRegister(body:any, route:string) {
+        let myResponse = fetch(`${route}`, {
+            method: 'POST',
+            body: body,
+        })
+        .then((response) => {
+            response.json().then((data) => {
+                console.log(data.status);
+                
+                if(response.status === 200){
+                    navigator.goBack();
+                    setError(data.message);
+
+                }
+                else{
+                    console.log(data.message);
+                }
+            })
+        })
+        .catch(error => {
+            console.error('Erro na requisição POST:', error);
+            throw new Error("error");
+        });
+        return myResponse;
+    }
+
+
+    async function deleteRegister( {id}: DeleteFolderProps){        
+        let formData = new FormData();
+        formData.append('id', id.toString());
+        await postFetchMultipartDeleteRegister(formData, 'https://mrpass.site/api/register/delete.php');
+    }
+
+
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, loadingAuth, loading, signOut, erro}}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, deleteRegister, loadingAuth, loading, signOut, erro}}>
             {children}
         </AuthContext.Provider>
     )

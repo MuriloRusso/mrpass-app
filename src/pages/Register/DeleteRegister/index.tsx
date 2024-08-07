@@ -8,18 +8,18 @@ import { useRoute, RouteProp } from "@react-navigation/native";
 import { AuthContext } from "../../../contexts/AuthContext";
 
 export type DeleteParams = {
-    deleteFolder: { id: number, nome: string }
+    deleteRegister: { id: number, nome: string }
 }
 
-export type DeleteRoute = RouteProp<DeleteParams, "deleteFolder">
+export type DeleteRoute = RouteProp<DeleteParams, "deleteRegister">
 
-export default function DeleteFolder() {
+export default function DeleteRegister() {
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>();
     const route = useRoute<DeleteRoute>();
-    const { deleteFolder } = useContext(AuthContext);
+    const { deleteRegister } = useContext(AuthContext);
 
     const handleDeleteFolder = async () => {
-        await deleteFolder({ id: route.params.id, title: route.params.nome });
+        await deleteRegister({ id: route.params.id, title: route.params.nome });
     };
 
     return (
@@ -33,7 +33,7 @@ export default function DeleteFolder() {
                 >
                     <Text style={styles.textBtnBack}>Voltar</Text>
                 </TouchableOpacity>
-                <Text style={{ marginTop: 10, marginBottom: 10 }}>Tem certeza de que deseja excluir a pasta {route.params.nome}?</Text>
+                <Text style={{ marginTop: 10, marginBottom: 10 }}>Tem certeza de que deseja excluir o registro {route.params.nome}?</Text>
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={handleDeleteFolder}
