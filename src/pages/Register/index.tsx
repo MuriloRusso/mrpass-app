@@ -1,5 +1,5 @@
 import React, {useContext, useEffect}from "react";
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native';
 import Header from "../../components/header";
 import RegisterList from "../../components/lists/RegisterList";
 
@@ -98,6 +98,15 @@ export default function Register(){
                     />
                 </View>
             </View>
+
+            
+{/* 
+            <View style={styles.copyModal}>
+                Texto copiado
+            </View> */}
+
+
+
         </ScrollView>
     )
 }
@@ -170,5 +179,13 @@ const styles = StyleSheet.create({
     },
     textCenter: {
       textAlign: 'center',
+    },
+    copyModal: {
+        position: 'absolute',
+        // bottom: 20,
+        top: 300,
+        backgroundColor: "#555",
+        color: "white",
+        padding: 10,
     }
 })
