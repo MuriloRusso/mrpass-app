@@ -6,10 +6,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { NavigateStackRoutes } from "../../../routes/app.routes";
 
-import DocumentPicker from 'react-native-document-picker';
 import { AuthContext } from "../../../contexts/AuthContext";
 
-export default function NewFolder() {
+export default function NewRegister() {
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>();
 
     const [title, setTitle] = React.useState('');
@@ -18,25 +17,9 @@ export default function NewFolder() {
     const {newFolder} = useContext(AuthContext)
 
 
-    const handleNewFolder = async () => {
+    const handleNewRegister = async () => {
         await newFolder({ title,  text })
     };
-
-
-    // const pickFile = async () => {
-    //     try {
-    //         const result = await DocumentPicker.pick({
-    //             type: [DocumentPicker.types.allFiles],
-    //         });
-    //         console.log(result);
-    //     } catch (err) {
-    //         if (DocumentPicker.isCancel(err)) {
-    //             console.log('User cancelled the picker');
-    //         } else {
-    //             throw err;
-    //         }
-    //     }
-    // };
 
     return (
         <ScrollView>
@@ -75,7 +58,7 @@ export default function NewFolder() {
 
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={handleNewFolder}
+                    onPress={handleNewRegister}
                     accessibilityLabel=""
                     >
                     <Text style={[styles.textWhite, styles.textCenter]}>

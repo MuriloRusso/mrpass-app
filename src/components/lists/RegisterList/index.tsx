@@ -50,11 +50,6 @@ export default function RegisterList({ data }:{data:any}){
         });
     }
 
-    
-
-   
-
-
     return(
         <View style={{...styles.border, ...styles.lineList}}>
             <View style={{...styles.row}}>

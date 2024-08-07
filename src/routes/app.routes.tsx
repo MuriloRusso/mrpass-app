@@ -7,6 +7,7 @@ import NewFolder from "../pages/Panel/NewFolder";
 import DeleteFolder from "../pages/Panel/DeleteFolder";
 import EditFolder from "../pages/Panel/EditFolder";
 import Register from "../pages/Register";
+import NewRegister from "../pages/Register/NewRegister";
 
 export type NavigateStackRoutes = {
     index: undefined;
@@ -26,6 +27,7 @@ export type NavigateStackRoutes = {
         file: string,
         extensao: string
     }
+    newRegister: undefined;
 }
 
 
@@ -39,6 +41,7 @@ function AppRoutes(){
             <Stack.Screen name="editFolder" component={EditFolder} options={{headerShown: false}}/>
             <Stack.Screen name="deleteFolder" component={DeleteFolder} options={{headerShown: false}}/>
             <Stack.Screen name="register" component={Register} options={{headerShown: false}}/>
+            <Stack.Screen name="newRegister" component={NewRegister} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 }

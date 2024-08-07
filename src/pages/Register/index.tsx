@@ -8,6 +8,8 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { NavigateStackRoutes } from "../../routes/app.routes";
 import { useIsFocused } from "@react-navigation/native";
 import { AuthContext } from "../../contexts/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 
 export type RegisterParams = {
@@ -56,6 +58,9 @@ export default function Register(){
 
     
     const {erro} = useContext(AuthContext);
+
+    console.log(route.params.file);
+    
  
 
     return(
@@ -72,11 +77,14 @@ export default function Register(){
 
                 <View  style={styles.listHeader}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image source={route.params.file ? { uri: `https://mrpass.site/img/upload/${route.params.file}.${route.params.extensao}`} : {uri: 'https://mrpass.site/img/icons/folder.png'}} ></Image>
+                        <TouchableOpacity onPress={() => navigator.navigate("index")}>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                        </TouchableOpacity>
+                        <Image style={styles.forlderImg} source={route.params.file ? { uri: `https://mrpass.site/img/upload/${route.params.file}.${route.params.extensao}`} : {uri: 'https://mrpass.site/img/icons/folder.png'}} ></Image>
                         <Text style={styles.listTitle}>{route.params.nome}</Text>
                     </View>
                     <TouchableOpacity style={styles.btn} onPress={() => {
-                        navigator.navigate("newFolder")
+                        navigator.navigate("newRegister")
                     }}>
                         <Image source={{uri: 'https://mrpass.site/img/icons/add.png'}} style={styles.btnIcon}></Image>
                         Novo
@@ -187,5 +195,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#555",
         color: "white",
         padding: 10,
+    },
+    forlderImg: {
+        width: 40, height: 40, marginHorizontal: 10
     }
 })
