@@ -89,7 +89,7 @@ export default function RegisterList({ data }:{data:any}){
             <View style={{...styles.row}}>
                 <TouchableOpacity style={{...styles.btnActions, ...styles.iconEdit}}
                     onPress={() => {
-                        navigatorr.navigate("editFolder", { id: data.id, nome: data.nome, descricao: data.descricao })
+                        navigatorr.navigate("editRegister", { id: data.id, plataforma: data.plataforma, link: data.link, usuario: data.usuario, senha: data.senha, descricao: data.descricao })
                     }}
                 >
                     <Image source={{uri: 'https://mrpass.site/img/icons/pencil.png'}} style={styles.iconActions}></Image>

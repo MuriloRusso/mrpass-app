@@ -9,6 +9,7 @@ import EditFolder from "../pages/Panel/EditFolder";
 import Register from "../pages/Register";
 import NewRegister from "../pages/Register/NewRegister";
 import DeleteRegister from "../pages/Register/DeleteRegister";
+import EditRegister from "../pages/Register/EditRegister";
 
 export type NavigateStackRoutes = {
     index: undefined;
@@ -31,6 +32,14 @@ export type NavigateStackRoutes = {
     newRegister: {
         id:any,
     };
+    editRegister: {
+        id:any,
+        plataforma: string,
+        link: string,
+        usuario: string,
+        senha: string,
+        descricao: string,
+    }
     deleteRegister: {
         id:any,
         nome: string
@@ -49,6 +58,7 @@ function AppRoutes(){
             <Stack.Screen name="deleteFolder" component={DeleteFolder} options={{headerShown: false}}/>
             <Stack.Screen name="register" component={Register} options={{headerShown: false}}/>
             <Stack.Screen name="newRegister" component={NewRegister} options={{headerShown: false}}/>
+            <Stack.Screen name="editRegister" component={EditRegister} options={{headerShown: false}}/>
             <Stack.Screen name="deleteRegister" component={DeleteRegister} options={{headerShown: false}}/>
 
         </Stack.Navigator>

@@ -19,6 +19,7 @@ type AuthContextData = {
     editFolder: (crendentials: EditFolderProps) => Promise<void>;
     deleteFolder: (crendentials: DeleteFolderProps) => Promise<void>;
     newRegister: (crendentials: RegisterProps) => Promise<void>;
+    editRegister: (crendentials: RegisterProps) => Promise<void>;
     deleteRegister: (crendentials: DeleteRegisterProps) => Promise<void>;
 
     loadingAuth: boolean;
@@ -360,6 +361,45 @@ export function AuthProvider({children}: AuthProviderProps){
         await postFetchMultipartNewRegister(formData, 'https://mrpass.site/api/register/new.php', id);
     }
 
+    //editer Regiter
+
+    async function postFetchMultipartEditRegister(body:any, route:string) {
+        let myResponse = fetch(`${route}`, {
+            method: 'POST',
+            body: body,
+        })
+        .then((response) => {
+            response.json().then((data) => {
+                if(response.status === 200){
+                    navigator.goBack();
+                    setError(data.message);
+                }
+                else{
+                    setError(data.message);
+                    console.log(data.message);
+                }
+            })
+        })
+        .catch(error => {
+            console.error('Erro na requisição POST:', error);
+            throw new Error("error");
+        });
+        return myResponse;
+    }
+
+
+    async function editRegister( {id, title, link, usuario, senha, descricao}: RegisterProps){
+        
+        let formData = new FormData();
+        formData.append('id', id.toString());
+        formData.append('title', title);
+        formData.append('link', link);
+        formData.append('usuario', usuario);
+        formData.append('senha', senha);
+        formData.append('descricao', descricao);
+        await postFetchMultipartEditRegister(formData, 'https://mrpass.site/api/register/edit.php');
+    }
+
 
     
     // delete Register
@@ -399,7 +439,7 @@ export function AuthProvider({children}: AuthProviderProps){
 
 
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, deleteRegister, loadingAuth, loading, signOut, erro}}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, editRegister, deleteRegister, loadingAuth, loading, signOut, erro}}>
             {children}
         </AuthContext.Provider>
     )

@@ -6,50 +6,35 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { NavigateStackRoutes } from "../../../routes/app.routes";
 
-import DocumentPicker from 'react-native-document-picker';
 import { AuthContext } from "../../../contexts/AuthContext";
 
 import { useRoute, RouteProp } from "@react-navigation/native";
 
 
 export type EditParams = {
-    editFolder: { id: number, nome: string, descricao: string }
+    editFolder: { id: number, plataforma: string, link: string, usuario: string, senha: string, descricao: string }
 }
 
 export type DeleteRoute = RouteProp<EditParams, "editFolder">
 
 
-export default function EditFolder() {
+export default function EditRegister() {
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>();
 
     const route = useRoute<DeleteRoute>();
 
     const [id, setId] = React.useState(route.params.id);
-    const [title, setTitle] = React.useState(route.params.nome);
-    const [text, setText] = React.useState(route.params.descricao);
+    const [title, setTitle] = React.useState(route.params.plataforma);
+    const [link, setLink] = React.useState(route.params.link);
+    const [usuario, setUsuario] = React.useState(route.params.usuario);
+    const [senha, setSenha] = React.useState(route.params.senha);
+    const [descricao, setDescricao] = React.useState(route.params.descricao);
+    const {editRegister} = useContext(AuthContext)
 
-    const {editFolder} = useContext(AuthContext)
 
-
-    const handleEditFolder = async () => {
-        await editFolder({ id, title,  text })
+    const handleEditRegister = async () => {
+         await editRegister({ id, title,  link, usuario, senha, descricao })
     };
-
-
-    // const pickFile = async () => {
-    //     try {
-    //         const result = await DocumentPicker.pick({
-    //             type: [DocumentPicker.types.allFiles],
-    //         });
-    //         console.log(result);
-    //     } catch (err) {
-    //         if (DocumentPicker.isCancel(err)) {
-    //             console.log('User cancelled the picker');
-    //         } else {
-    //             throw err;
-    //         }
-    //     }
-    // };
 
     return (
         <ScrollView>
@@ -67,32 +52,57 @@ export default function EditFolder() {
                     style={styles.input}
                     onChangeText={setTitle}
                     value={title}
-                    placeholder="Nome da pasta"
+                    placeholder="Plataforma"
                     keyboardType="default"
                     placeholderTextColor="#777777"
                 />
 
-                {/* <Button title="Pick a file" onPress={pickFile} /> */}
-                <Button title="Escolha uma imagem" onPress={()=> console.log('teste')} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setLink}
+                    value={link}
+                    placeholder="Link"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setUsuario}
+                    value={usuario}
+                    placeholder="Usuário"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setSenha}
+                    value={senha}
+                    placeholder="Senha"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
 
 
                 <TextInput
                     style={{ ...styles.input, ...styles.textarea }}
-                    onChangeText={setText}
-                    value={text}
-                    placeholder="Descrição da pasta"
+                    onChangeText={setDescricao}
+                    value={descricao}
+                    placeholder="Descrição"
                     keyboardType="default"
                     placeholderTextColor="#777777"
                     multiline={true}
                 />
 
+
                 <TouchableOpacity
                     style={styles.btn}
-                    onPress={handleEditFolder}
+                    onPress={handleEditRegister}
                     accessibilityLabel=""
                     >
                     <Text style={[styles.textWhite, styles.textCenter]}>
-                        Atualizar Pasta
+                        Atualizar Registro
                     </Text>
                 </TouchableOpacity>
             </View> 
