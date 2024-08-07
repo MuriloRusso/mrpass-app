@@ -25,7 +25,8 @@ type AuthContextData = {
     loadingAuth: boolean;
     loading: boolean;
     signOut: () => Promise<void>;
-    erro: string
+    erro: string;
+    setError: any;
 }
 
 type UserProps = {
@@ -439,7 +440,7 @@ export function AuthProvider({children}: AuthProviderProps){
 
 
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, editRegister, deleteRegister, loadingAuth, loading, signOut, erro}}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, editRegister, deleteRegister, loadingAuth, loading, signOut, erro, setError}}>
             {children}
         </AuthContext.Provider>
     )

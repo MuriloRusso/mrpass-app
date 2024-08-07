@@ -57,8 +57,13 @@ export default function Register(){
     }
 
     
-    const {erro} = useContext(AuthContext);    
+    const {erro, setError} = useContext(AuthContext);    
  
+    if(erro){
+        setTimeout(() => {
+            setError('');
+        },5000)
+    }
 
     return(
         <ScrollView>

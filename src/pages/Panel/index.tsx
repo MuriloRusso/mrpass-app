@@ -38,15 +38,21 @@ export default function Panel(){
             getFetch('https://mrpass.site/api/folders/panel.php');
         }
     },[isFocused])
-    
-    
+
+
     async function getListBySearch() {        
         getFetch(`https://mrpass.site/api/folders/search.php?search=${search}`);
     }
 
-    
-    const {erro} = useContext(AuthContext);
- 
+
+    const {erro, setError} = useContext(AuthContext);
+
+    if(erro){
+        setTimeout(() => {
+            setError('');
+        },5000)
+    }
+
 
     return(
         <ScrollView>
