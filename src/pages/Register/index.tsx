@@ -53,14 +53,11 @@ export default function Register(){
     
     
     async function getListBySearch() {        
-        getFetch(`https://mrpass.site/api/register/search.php?search=${search}`);
+        getFetch(`https://mrpass.site/api/register/search.php?search=${search}&id=${route.params.id}`);
     }
 
     
-    const {erro} = useContext(AuthContext);
-
-    console.log(route.params.file);
-    
+    const {erro} = useContext(AuthContext);    
  
 
     return(
