@@ -18,6 +18,8 @@ type AuthContextData = {
     newFolder: (crendentials: FolderProps) => Promise<void>;
     editFolder: (crendentials: EditFolderProps) => Promise<void>;
     deleteFolder: (crendentials: DeleteFolderProps) => Promise<void>;
+    newRegister: (crendentials: RegisterProps) => Promise<void>;
+
     loadingAuth: boolean;
     loading: boolean;
     signOut: () => Promise<void>;
@@ -55,6 +57,19 @@ type DeleteFolderProps = {
     id: number;
     title: string;
 }
+
+
+type RegisterProps = {
+    id: number;
+    title: string;
+    link: string;
+    usuario: string;
+    senha: string;
+    descricao: string;
+
+}
+
+
 
 export const AuthContext = createContext({} as AuthContextData);
 
@@ -298,8 +313,49 @@ export function AuthProvider({children}: AuthProviderProps){
     }
 
 
+    
+    // new register
+    async function postFetchMultipartNewRegister(body:any, route:string, idFolder:any) {
+        let myResponse = fetch(`${route}`, {
+            method: 'POST',
+            body: body,
+        })
+        .then((response) => {
+            response.json().then((data) => {
+                console.log(data.status);
+                
+                if(response.status === 200){
+                    navigator.goBack();
+                    setError(data.message);
+                }
+                else{
+                    console.log(data.message);
+                }
+            })
+        })
+        .catch(error => {
+            console.error('Erro na requisição POST:', error);
+            throw new Error("error");
+        });
+        return myResponse;
+    }
+
+
+    async function newRegister( {id, title, link, usuario, senha, descricao}: RegisterProps){
+        
+        let formData = new FormData();
+        formData.append('id', id.toString());
+        formData.append('title', title);
+        formData.append('link', link);
+        formData.append('usuario', usuario);
+        formData.append('senha', senha);
+        formData.append('descricao', descricao);
+        await postFetchMultipartNewRegister(formData, 'https://mrpass.site/api/register/new.php', id);
+    }
+
+
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, loadingAuth, loading, signOut, erro}}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, loadingAuth, loading, signOut, erro}}>
             {children}
         </AuthContext.Provider>
     )

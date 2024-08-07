@@ -3,22 +3,32 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView
 import Header from "../../../components/header";
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { NavigateStackRoutes } from "../../../routes/app.routes";
 
 import { AuthContext } from "../../../contexts/AuthContext";
+import { RegisterRoute } from "..";
 
 export default function NewRegister() {
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>();
 
-    const [title, setTitle] = React.useState('');
-    const [text, setText] = React.useState('');
+    const route = useRoute<RegisterRoute>();
 
-    const {newFolder} = useContext(AuthContext)
+
+    const [id, setId] = React.useState(route.params.id);
+    const [title, setTitle] = React.useState('');
+    const [link, setLink] = React.useState('');
+    const [usuario, setUsuario] = React.useState('');
+    const [senha, setSenha] = React.useState('');
+    const [descricao, setDescricao] = React.useState('');
+
+    const {newRegister} = useContext(AuthContext)
+
+    console.log(route.params.id);   
 
 
     const handleNewRegister = async () => {
-        await newFolder({ title,  text })
+        await newRegister({ id, title,  link, usuario, senha, descricao })
     };
 
     return (
@@ -37,24 +47,50 @@ export default function NewRegister() {
                     style={styles.input}
                     onChangeText={setTitle}
                     value={title}
-                    placeholder="Nome da pasta"
+                    placeholder="Plataforma"
                     keyboardType="default"
                     placeholderTextColor="#777777"
                 />
 
-                {/* <Button title="Pick a file" onPress={pickFile} /> */}
-                <Button title="Escolha uma imagem" onPress={()=> console.log('teste')} />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setLink}
+                    value={link}
+                    placeholder="Link"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setUsuario}
+                    value={usuario}
+                    placeholder="Usuário"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setSenha}
+                    value={senha}
+                    placeholder="Senha"
+                    keyboardType="default"
+                    placeholderTextColor="#777777"
+                />
 
 
                 <TextInput
                     style={{ ...styles.input, ...styles.textarea }}
-                    onChangeText={setText}
-                    value={text}
-                    placeholder="Descrição da pasta"
+                    onChangeText={setDescricao}
+                    value={descricao}
+                    placeholder="Descrição"
                     keyboardType="default"
                     placeholderTextColor="#777777"
                     multiline={true}
                 />
+
+ 
 
                 <TouchableOpacity
                     style={styles.btn}
@@ -62,7 +98,7 @@ export default function NewRegister() {
                     accessibilityLabel=""
                     >
                     <Text style={[styles.textWhite, styles.textCenter]}>
-                        Entrar
+                        Criar Registro
                     </Text>
                 </TouchableOpacity>
             </View> 

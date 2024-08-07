@@ -81,7 +81,7 @@ export default function Register(){
                         <Text style={styles.listTitle}>{route.params.nome}</Text>
                     </View>
                     <TouchableOpacity style={styles.btn} onPress={() => {
-                        navigator.navigate("newRegister")
+                        navigator.navigate("newRegister", {id: route.params.id})
                     }}>
                         <Image source={{uri: 'https://mrpass.site/img/icons/add.png'}} style={styles.btnIcon}></Image>
                         Novo

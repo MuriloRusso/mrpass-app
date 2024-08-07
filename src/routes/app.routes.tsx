@@ -27,7 +27,9 @@ export type NavigateStackRoutes = {
         file: string,
         extensao: string
     }
-    newRegister: undefined;
+    newRegister: {
+        id:any,
+    };
 }
 
 
