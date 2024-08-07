@@ -1,7 +1,7 @@
 import React, {useContext, useEffect}from "react";
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native';
 import Header from "../../components/header";
-import FolderList from '../../components/lists/FoldersList'
+import RegisterList from "../../components/lists/RegisterList";
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
@@ -94,7 +94,7 @@ export default function Register(){
                     <FlatList 
                         data={folders} 
                         keyExtractor={(item) => 'teste'} 
-                        renderItem={({ item }) => <FolderList data={item} />} 
+                        renderItem={({ item }) => <RegisterList data={item} />} 
                     />
                 </View>
             </View>
