@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useContext, useEffect, useState } from "react";
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView, Platform, Image } from 'react-native';
 import Header from "../../../components/header";
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -7,6 +7,12 @@ import { useNavigation } from "@react-navigation/native";
 import { NavigateStackRoutes } from "../../../routes/app.routes";
 
 import DocumentPicker from 'react-native-document-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import { Pressable } from 'react-native';
+
+
+
 import { AuthContext } from "../../../contexts/AuthContext";
 
 export default function NewFolder() {
@@ -23,20 +29,27 @@ export default function NewFolder() {
     };
 
 
-    // const pickFile = async () => {
-    //     try {
-    //         const result = await DocumentPicker.pick({
-    //             type: [DocumentPicker.types.allFiles],
-    //         });
-    //         console.log(result);
-    //     } catch (err) {
-    //         if (DocumentPicker.isCancel(err)) {
-    //             console.log('User cancelled the picker');
-    //         } else {
-    //             throw err;
-    //         }
-    //     }
-    // };
+    const [imageUri, setImageUri] = useState(null);
+
+    const pickImage = () => {
+        launchImageLibrary({ mediaType: 'photo' }, (response) => {
+            console.log(response);
+            console.log(response.assets);            
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else {
+                const uri = response.assets[0].uri;
+                setImageUri(uri);
+                console.log(uri);
+            }
+        });
+    };
+
+
+
+        
 
     return (
         <ScrollView>
@@ -59,10 +72,12 @@ export default function NewFolder() {
                     placeholderTextColor="#777777"
                 />
 
-                {/* <Button title="Pick a file" onPress={pickFile} /> */}
-                <Button title="Escolha uma imagem" onPress={()=> console.log('teste')} />
+                <View>
+                    <Button title="Escolher Imagem" onPress={pickImage} />
+                    {imageUri && <Image source={{ uri: imageUri }} style={styles.image} />}
+                </View>
 
-
+                
                 <TextInput
                     style={{ ...styles.input, ...styles.textarea }}
                     onChangeText={setText}
@@ -131,5 +146,12 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
+    },
+
+
+    image: {
+        width: 200,
+        height: 200,
+        marginTop: 20,
     },
 });
