@@ -55,46 +55,48 @@ export default function Panel(){
 
 
     return(
-        <ScrollView>
+        <>
             <Header></Header>
-            <View style={styles.container}>
+            <ScrollView>
+                <View style={styles.container}>
+                    {
+                        erro &&
+                            <View style={[styles.alertSuccess, styles.alert]}>
+                            <Text style={[styles.alertSuccess, styles.textCenter]}>{erro}</Text>
+                            </View>
+                    }
 
-                {
-                    erro &&
-                        <View style={[styles.alertSuccess, styles.alert]}>
-                        <Text style={[styles.alertSuccess, styles.textCenter]}>{erro}</Text>
+                    <View  style={styles.listHeader}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Image source={{uri: 'https://mrpass.site/img/icons/folder.png'}} style={styles.iconHeader}></Image>
+                            <Text style={styles.listTitle}>Pastas</Text>
                         </View>
-                }
-
-                <View  style={styles.listHeader}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Image source={{uri: 'https://mrpass.site/img/icons/folder.png'}} style={styles.iconHeader}></Image>
-                        <Text style={styles.listTitle}>Pastas</Text>
+                        <TouchableOpacity style={styles.btn} onPress={() => {
+                            navigator.navigate("newFolder")
+                        }}>
+                            <Image source={{uri: 'https://mrpass.site/img/icons/add.png'}} style={styles.btnIcon}></Image>
+                            Novo
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.btn} onPress={() => {
-                        navigator.navigate("newFolder")
-                    }}>
-                        <Image source={{uri: 'https://mrpass.site/img/icons/add.png'}} style={styles.btnIcon}></Image>
-                        Novo
-                    </TouchableOpacity>
+                    <View  style={styles.searchContainer}>
+                        <TextInput style={styles.searchInput} onChangeText={setSearch} value={search} placeholder="Buscar..."></TextInput>
+                        <TouchableOpacity style={styles.btn} onPress={getListBySearch}>
+                            <Image source={{uri: 'https://mrpass.site/img/icons/search.png'}} style={styles.btnIcon}></Image>
+                            Buscar
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        {/* <FlatList data={folders} keyExtractor={(item) => item.key} renderItem={({item}) => <FolderList data={item} />}/> */}
+                        <FlatList 
+                            data={folders} 
+                            keyExtractor={(item) => 'teste'} 
+                            renderItem={({ item }) => <FolderList data={item} />} 
+                        />
+                    </View>
                 </View>
-                <View  style={styles.searchContainer}>
-                    <TextInput style={styles.searchInput} onChangeText={setSearch} value={search} placeholder="Buscar..."></TextInput>
-                    <TouchableOpacity style={styles.btn} onPress={getListBySearch}>
-                        <Image source={{uri: 'https://mrpass.site/img/icons/search.png'}} style={styles.btnIcon}></Image>
-                        Buscar
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    {/* <FlatList data={folders} keyExtractor={(item) => item.key} renderItem={({item}) => <FolderList data={item} />}/> */}
-                    <FlatList 
-                        data={folders} 
-                        keyExtractor={(item) => 'teste'} 
-                        renderItem={({ item }) => <FolderList data={item} />} 
-                    />
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+            
+        </>
     )
 }
 
