@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView } from 'react-native';
 import axios from 'axios';
 
 import { AuthContext } from '../../contexts/AuthContext';
@@ -22,47 +22,50 @@ export default function Login() {
   };
 
   return (
-    <View style={{ alignItems: 'center', width: "100%" }}>
-      <View style={{ ...styles.container, maxWidth: '90%' }}>
-        <Text style={styles.title}>MRPass</Text>
-        <Text style={{fontSize: 18}}>Gerenciamento de Senhas</Text>
-        {
-          erro &&
-            <View style={[styles.alertDanger, styles.alert]}>
-              <Text style={[styles.alertDanger, styles.textCenter]}>{erro}</Text>
-            </View>
-        }
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeEmail}
-          value={email}
-          placeholder="E-mail"
-          keyboardType="numeric"
-          placeholderTextColor="#777777"
+    <ScrollView>
+      <View style={{ alignItems: 'center', width: "100%" }}>
+        <View style={{ ...styles.container, maxWidth: '90%' }}>
+          <Text style={styles.title}>MRPass</Text>
+          <Text style={{fontSize: 18}}>Gerenciamento de Senhas</Text>
+          {
+            erro &&
+              <View style={[styles.alertDanger, styles.alert]}>
+                <Text style={[styles.alertDanger, styles.textCenter]}>{erro}</Text>
+              </View>
+          }
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeEmail}
+            value={email}
+            placeholder="E-mail"
+            keyboardType="default"
+            placeholderTextColor="#777777"
+            >
+          </TextInput>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangePassword}
+            value={password}
+            placeholder="Senha"
+            secureTextEntry={true}
+            keyboardType="default"
+            placeholderTextColor="#777777"
           >
-        </TextInput>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePassword}
-          value={password}
-          placeholder="Senha"
-          secureTextEntry={true}
-          keyboardType="numeric"
-          placeholderTextColor="#777777"
-        >
-        </TextInput>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={handleLogin}
-          accessibilityLabel=""
-        >
-          <Text style={[styles.textWhite, styles.textCenter]}>
-            Entrar
-          </Text>
-        </TouchableOpacity>
-        <StatusBar backgroundColor='#FE715B' /*barStyle="light-content"*/ translucent={false}/>
+          </TextInput>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={handleLogin}
+            accessibilityLabel=""
+          >
+            <Text style={[styles.textWhite, styles.textCenter]}>
+              Entrar
+            </Text>
+          </TouchableOpacity>
+          <StatusBar backgroundColor='#FE715B' /*barStyle="light-content"*/ translucent={false}/>
+        </View>
       </View>
-    </View>
+    </ScrollView>
+
   );
 }
 
