@@ -107,15 +107,11 @@ export default function Register(){
                         renderItem={({ item }) => <RegisterList data={item} />} 
                     />
                 </View>
-            </View>
-
-            
+            </View>            
 {/* 
             <View style={styles.copyModal}>
                 Texto copiado
-            </View> */}
-
-
+            </View>  */}
 
         </ScrollView>
     )

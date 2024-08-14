@@ -11,6 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { Button } from "react-native-elements";
 
+
+import { AuthContext } from "../../../contexts/AuthContext";
+
 export default function RegisterList({ data }:{data:any}){
     const navigatorr = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>()
 
@@ -41,9 +44,12 @@ export default function RegisterList({ data }:{data:any}){
     //     ]);
     
     
+    const {erro, setError} = useContext(AuthContext);
+
     function copyToClipboard(text:string) {
         navigator.clipboard.writeText(text).then(() => {
             console.log('Texto copiado com sucesso!');
+            setError('Texto copiado com sucesso!');
             // showAlert;
         }).catch(err => {
             console.error('Erro ao copiar texto: ', err);
