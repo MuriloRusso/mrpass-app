@@ -1,11 +1,11 @@
 import React, {useState, createContext, ReactNode, useEffect} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { api } from "../services/api";
+import { api } from "../../services/api";
 import axios from 'axios';
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { NavigateStackRoutes } from "../routes/app.routes";
+import { NavigateStackRoutes } from "../../routes/app.routes";
 
 type AuthContextData = {
     user: UserProps;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView, Platform, Image } from 'react-native';
 import Header from "../../../components/header";
 
@@ -13,7 +13,14 @@ import { Pressable } from 'react-native';
 
 
 
+// import { FolderContext } from "../../../contexts/Folder/FolderContext";
 import { AuthContext } from "../../../contexts/AuthContext";
+// import { useFolderContext } from "../../../hooks/useFolderContext";
+// import { AuthContext } from "../../../contexts/Folder/AuthContext";
+// import { AuthContext } from "../../../contexts/FolderContext";
+// import { FolderContext } from "../../../contexts/FolderContext";
+
+
 
 export default function NewFolder() {
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>();
@@ -21,18 +28,20 @@ export default function NewFolder() {
     const [title, setTitle] = React.useState('');
     const [text, setText] = React.useState('');
 
-    const {newFolder} = useContext(AuthContext)
+    // const { newFolder } = useContext(AuthContext);
+    // const { newFolder, erro2 } = useContext(FolderContext);
+    // const { newFolder, erro2, setError2 } = useFolderContext();
+    const { newFolder } = useContext(AuthContext);
+    // const { newFolder } = useContext(FolderContext);
+
+
 
 
     const handleNewFolder = async () => {
         await newFolder({ title,  text })
     };
 
-
     const [imageUri, setImageUri] = useState(null);
-
-    
-
     const pickImage = () => {
         // launchImageLibrary({ mediaType: 'photo' }, (response) => {
         //     console.log(response);
@@ -47,11 +56,7 @@ export default function NewFolder() {
         //         console.log(uri);
         //     }
         // });
-    };
-
-
-
-        
+    };        
 
     return (
         <ScrollView>
@@ -96,7 +101,7 @@ export default function NewFolder() {
                     accessibilityLabel=""
                     >
                     <Text style={[styles.textWhite, styles.textCenter]}>
-                        Entrar
+                        Criar Pasta
                     </Text>
                 </TouchableOpacity>
             </View> 

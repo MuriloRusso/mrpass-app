@@ -71,7 +71,7 @@ type DeleteRegisterProps = {
     title: string;
 }
 
-export const AuthContext = createContext({} as AuthContextData);
+export const FolderContext = createContext({} as AuthContextData);
 
 export function AuthProvider({children}: AuthProviderProps){
     const navigator = useNavigation<NativeStackNavigationProp<NavigateStackRoutes>>()
@@ -396,8 +396,8 @@ export function AuthProvider({children}: AuthProviderProps){
     }
 
     return(
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, editRegister, deleteRegister, loadingAuth, loading, signOut, erro, setError}}>
+        <FolderContext.Provider value={{ user, isAuthenticated, signIn, newFolder, editFolder, deleteFolder, newRegister, editRegister, deleteRegister, loadingAuth, loading, signOut, erro, setError}}>
             {children}
-        </AuthContext.Provider>
+        </FolderContext.Provider>
     )
 }
